@@ -4,6 +4,7 @@ import fetch from "node-fetch";
 export default {
   component: SampleLoaderComponent,
   title: "LoaderExample",
+  
 };
 
 // TypeError: Cannot read property 'loaded' of undefined
@@ -34,13 +35,21 @@ export default {
   title: "Sanple TODO",
   completed: false,
 }" */
-// Which is actually not true because type checking the todo it's being reposted as an object
+// Which is actually not true because type checking the todo it's being reported as an object
 export const SampleStory = (args, { argTypes, loaded: { todo } }) => {
-  console.log(`todo:${JSON.stringify(todo, null, 2)}`);
+  console.log(`todo is a ${typeof todo} \n with the following value:${JSON.stringify(todo, null, 2)}`);
+
+  /* args.todo={
+    userId:todo.userId,
+    id:todo.id,
+    title:todo.title,
+    completed:todo.completed
+  } */
   return {
     props: Object.keys(argTypes),
     components: { SampleLoaderComponent },
-    template: `<SampleLoaderComponent :todo="todo"/>`,
+    //template: `<SampleLoaderComponent v-bind="$props"/>`,
+    template: `<SampleLoaderComponent :todo="todo"/>`, // Seems that the todo is being inferred as a string for some reason when bubbles up 
   };
 };
 SampleStory.loaders = [
