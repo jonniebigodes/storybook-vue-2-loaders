@@ -4,13 +4,7 @@ import fetch from "node-fetch";
 export default {
   component: SampleLoaderComponent,
   title: "LoaderExample",
-  /* With this commented the control will be processed as a string and leads to Invalid prop: type check failed for prop "todo". Expected Object, got String with value "{
-      userId: 0,
-      id: 0,
-      title: "Sanple TODO",
-      completed: false,
-    }". */
-
+  // commenting this defaults to the props default (Something)  as opposed to what should be the value
   argTypes: {
     todo: {
       control: {
@@ -27,12 +21,11 @@ export default {
 };
 
 export const SampleStory = (args, { argTypes, loaded: { todo } }) => {
-  //console.log("args before", args);
+  console.log("args before", args.todo);
 
-  //console.log("todo request :", todo);
-  args.todo = JSON.stringify(todo,null,2);
+  args.todo = JSON.stringify(todo, null, 2);
 
-  console.log("args after", args.todo);
+  console.log("args after", args);
   return {
     props: Object.keys(argTypes),
     components: { SampleLoaderComponent },
