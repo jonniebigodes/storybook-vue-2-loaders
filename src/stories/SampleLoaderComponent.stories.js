@@ -31,14 +31,28 @@ export default {
 export const SampleStory = (args, { argTypes, loaded: { todo } }) => {
   
   console.log("todo",todo);
-  // args.todo= todo // all hail mary attempt to add bind the prop, does not work
+  
+  
+  // updates the args
+  console.log(`args before`,args.todo)
+  args.todo= todo // all hail mary attempt to add bind the prop, does not work
+  console.log(`args after`,args.todo)
+  //
   return {
     props: Object.keys(argTypes),
     components: { SampleLoaderComponent },
-    template: `<SampleLoaderComponent :todo="todo" />`,
-    //template: `<SampleLoaderComponent v-bind="$props" />`,
+    //template: `<SampleLoaderComponent :todo="todo" />`,
+    template: `<SampleLoaderComponent v-bind="$props" />`,
   };
 };
+SampleStory.args={
+  todo:{
+    userId:0,
+    id:0,
+    title:'Sample',
+    completed:false
+  },
+}
 SampleStory.loaders = [
   async () => ({
     todo: await (

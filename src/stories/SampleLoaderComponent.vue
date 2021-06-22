@@ -15,14 +15,8 @@ export default {
   props: {
     todo: {
       type: Object,
-      default: function () {
-        return {
-          userId: 0,
-          id: 0,
-          title: "Sanple TODO",
-          completed: false,
-        };
-      },
+      default: () => ({ userId: 0, id: 0, title: 'Sample TODO',completed:false }),
+      validator: todo => ['userId', 'id', 'title','completed'].every(key => key in todo)
     },
   },
 };
