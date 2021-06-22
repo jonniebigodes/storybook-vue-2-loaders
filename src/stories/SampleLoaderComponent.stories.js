@@ -9,9 +9,11 @@ export default {
       id: 0,
       title: "Sanple TODO",
       completed: false,
-    }". */
+    }". 
+    Without it commented it doesn't update the component's prop and keeps the default value below
+    */
 
-  argTypes: {
+  /* argTypes: {
     todo: {
       control: {
         type: "object",
@@ -23,20 +25,18 @@ export default {
         completed: false,
       },
     },
-  },
+  }, */
 };
 
 export const SampleStory = (args, { argTypes, loaded: { todo } }) => {
-  //console.log("args before", args);
-
-  //console.log("todo request :", todo);
-  args.todo = JSON.stringify(todo,null,2);
-
-  console.log("args after", args.todo);
+  
+  console.log("todo",todo);
+  // args.todo= todo // all hail mary attempt to add bind the prop, does not work
   return {
     props: Object.keys(argTypes),
     components: { SampleLoaderComponent },
-    template: `<SampleLoaderComponent v-bind="$props" />`,
+    template: `<SampleLoaderComponent :todo="todo" />`,
+    //template: `<SampleLoaderComponent v-bind="$props" />`,
   };
 };
 SampleStory.loaders = [
@@ -58,6 +58,7 @@ export const AnotherStory = (args, { argTypes, loaded: { currentUser } }) => {
   return {
     props: Object.keys(argTypes),
     components: { SampleLoaderComponent },
-    template: `<SampleLoaderComponent v-bind="$props" />`,
+    //template: `<SampleLoaderComponent v-bind="$props" />`,
+    template: `<SampleLoaderComponent :todo="currentUser" />`,
   };
 };
