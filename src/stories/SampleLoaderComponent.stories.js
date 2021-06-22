@@ -20,16 +20,20 @@ export default {
   },
 };
 
+
+/* With the component prop set to a String and pushing the JSON (todo) it throws
+Invalid prop: type check failed for prop "todo". Expected String, got Object 
+What is happening here????'
+
+*/
 export const SampleStory = (args, { argTypes, loaded: { todo } }) => {
-  console.log("args before", args.todo);
+  console.log("todo", todo);
 
-  args.todo = JSON.stringify(todo, null, 2);
-
-  console.log("args after", args);
   return {
     props: Object.keys(argTypes),
     components: { SampleLoaderComponent },
-    template: `<SampleLoaderComponent v-bind="$props" />`,
+    //template: `<SampleLoaderComponent v-bind="$props" />`,
+    template: `<SampleLoaderComponent :todo="todo" />`,
   };
 };
 SampleStory.loaders = [
