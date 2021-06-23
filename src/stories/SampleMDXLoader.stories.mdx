@@ -1,0 +1,35 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+
+import SampleLoaderComponent from "./SampleLoaderComponent.vue";
+import fetch from "node-fetch";
+
+<Meta title="Vue 2 MDX loader example" component={SampleLoaderComponent} />
+
+# Example Story loader
+
+<Story
+  name="Example Loader from a story"
+  loaders={[
+    async () => ({
+      todo: await (
+        await fetch("https://jsonplaceholder.typicode.com/todos/1")
+      ).json(),
+    }),
+  ]}
+>
+  {(args, { argTypes, loaded: { todo } }) => ({
+    props: Object.keys(argTypes),
+    components: { SampleLoaderComponent },
+    template: `<SampleLoaderComponent v-bind="$props" />`,
+  })}
+</Story>
+
+# Example Preview loader
+
+<Story name="Example Loader from preview">
+  {(args, { argTypes, loaded: { todo } }) => ({
+    props: Object.keys(argTypes),
+    components: { SampleLoaderComponent },
+    template: `<SampleLoaderComponent v-bind="$props" />`,
+  })}
+</Story>
